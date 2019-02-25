@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@model List<ClientWebApiDatos.Models.Usuario>
+<table class="table">
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.id_usuario</td>
+        <td>@item.usuario_red</td>
+        <td>@item.fecha_registro</td>
+        <td>
+            @if (@item.estado.Equals("1"))
+            {
+                @Html.Raw("Activo")
+            }
+            else
+            {
+                @Html.Raw("Inactivo")
+            }
+        </td>
+        <td width="50">
+            <a href="@Url.Action("ModifyUser", "Home", new { id = @item.id_usuario, user = item.usuario_red, estado = item.estado })">
+                <span class="glyphicon glyphicon-edit btn btn-info btn-md"></span>
+            </a>
+        </td>
+        <td width="50">
+            <a href="@Url.Action("DisableUser", "Home", new { id = @item.id_usuario})" onclick="return confirm('Desea desactivar este usuario?')">
+                <span class="glyphicon glyphicon-remove-sign btn btn-danger btn-md"></span>
+            </a>
+        </td>
+    </tr>
+    }
+</table>
+
